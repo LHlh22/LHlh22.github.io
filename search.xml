@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>Phar反序列化总结</title>
-    <url>/2020/09/28/Phar%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E6%80%BB%E7%BB%93/</url>
+    <title>Phar反序列化利用</title>
+    <url>/2020/10/22/Phar%E5%8F%8D%E5%BA%8F%E5%88%97%E5%8C%96%E5%88%A9%E7%94%A8/</url>
     <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><h2 id="一、phar结构"><a href="#一、phar结构" class="headerlink" title="一、phar结构"></a>一、phar结构</h2><p>翻阅手册可以知道，phar由四个部分组成，分别是stub、manifest describing the contents、 the file contents、 [optional] a signature for verifying Phar integrity (phar file format only)，以下是对详细的介绍：</p>
 <h3 id="a-stub"><a href="#a-stub" class="headerlink" title="a stub"></a>a stub</h3><p>标识作用，格式为xxx<?php xxx; __HALT_COMPILER();?>，前面任意，但是一定要以__HALT_COMPILER();?&gt;结尾，否则php无法识别这是一个phar。</p>
 <h3 id="a-manifest-describing-the-contents"><a href="#a-manifest-describing-the-contents" class="headerlink" title="a manifest describing the contents"></a>a manifest describing the contents</h3><p>phar文件实质上是一种压缩文件，其中压缩信息、权限等都在这一部分里。当然，我们所需的攻击利用点meta-data序列化信息也在这一部分中。具体结构如图所示<br><img src="/images/web/phar1.png" alt="direct"></p>
@@ -33,36 +33,6 @@
       <tags>
         <tag>PHP</tag>
       </tags>
-  </entry>
-  <entry>
-    <title>Hello World</title>
-    <url>/2020/09/20/hello-world/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
-]]></content>
-  </entry>
-  <entry>
-    <title>我的第一篇博客</title>
-    <url>/2020/09/21/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2/</url>
-    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>这是我使用hexo搭的第一篇博客，今天是2020年9月21日</p>
-<h2 id="First"><a href="#First" class="headerlink" title="First"></a>First</h2>
-    <div id="aplayer-etLXWntz" class="aplayer aplayer-tag-marker meting-tag-marker" data-id="355995" data-server="netease" data-type="song" data-mode="circulation" data-autoplay="false" data-mutex="true" data-listmaxheight="340px" data-preload="auto" data-theme="#ad7a86"></div>
-<h3 id="I-want-to-say-but-there-is-nothing-to-say"><a href="#I-want-to-say-but-there-is-nothing-to-say" class="headerlink" title="I want to say , but there is nothing to say"></a>I want to say , but there is nothing to say</h3><p>植根于内心的修养，无需提醒的自觉，以约束为前提的自由，为他人着想的善良 –梁晓声曾这样概括文化二字<br><img src="/images/nanfei.jpg" alt="direct"></p>
-]]></content>
-      <categories>
-        <category>随笔</category>
-      </categories>
   </entry>
   <entry>
     <title>Seacms v10.1 后台getshell</title>
@@ -98,5 +68,35 @@
       <tags>
         <tag>网站漏洞复现</tag>
       </tags>
+  </entry>
+  <entry>
+    <title>我的第一篇博客</title>
+    <url>/2020/09/21/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>这是我使用hexo搭的第一篇博客，今天是2020年9月21日</p>
+<h2 id="First"><a href="#First" class="headerlink" title="First"></a>First</h2>
+    <div id="aplayer-PdKuKVrI" class="aplayer aplayer-tag-marker meting-tag-marker" data-id="355995" data-server="netease" data-type="song" data-mode="circulation" data-autoplay="false" data-mutex="true" data-listmaxheight="340px" data-preload="auto" data-theme="#ad7a86"></div>
+<h3 id="I-want-to-say-but-there-is-nothing-to-say"><a href="#I-want-to-say-but-there-is-nothing-to-say" class="headerlink" title="I want to say , but there is nothing to say"></a>I want to say , but there is nothing to say</h3><p>植根于内心的修养，无需提醒的自觉，以约束为前提的自由，为他人着想的善良 –梁晓声曾这样概括文化二字<br><img src="/images/nanfei.jpg" alt="direct"></p>
+]]></content>
+      <categories>
+        <category>随笔</category>
+      </categories>
+  </entry>
+  <entry>
+    <title>Hello World</title>
+    <url>/2020/09/20/hello-world/</url>
+    <content><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><script class="meting-secondary-script-marker" src="\assets\js\Meting.min.js"></script><p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+]]></content>
   </entry>
 </search>
